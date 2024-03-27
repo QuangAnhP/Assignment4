@@ -1,0 +1,13 @@
+{
+    "cSpell.words": [
+        "backindex",
+        "frontindex"
+    ],
+    "files.associations": {
+        "vector": "cpp",
+        "__bit_reference": "cpp",
+        "string": "cpp",
+        "__split_buffer": "cpp"
+    },
+    "C_Cpp.default.compilerPath": "/usr/bin/g++"
+}
