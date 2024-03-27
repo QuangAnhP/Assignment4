@@ -1,0 +1,3 @@
+# ignore objects file to not clutter the repo
+*.o
+
