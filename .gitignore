@@ -1,3 +1,5 @@
 # ignore objects file to not clutter the repo
 *.o
 
+# ignore setting file 
+*.json

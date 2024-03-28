@@ -28,6 +28,10 @@ Queue<ElementType>::Queue(const Queue& aQueue) : elementCount(aQueue.elementCoun
 template<typename ElementType>
 Queue<ElementType>::~Queue() {
     delete[] elements;
+    elementCount = 0;
+    capacity = 0;
+    frontindex = 0;
+    backindex = 0;
 }
 
 template<typename ElementType>
@@ -74,4 +78,22 @@ void Queue<ElementType>::dequeue() {
 template<typename ElementType>
 ElementType& Queue<ElementType>::peek() const {
     return elements[frontindex];    
+}
+
+template<typename ElementType>
+void Queue<ElementType>::print() const {
+    cout << "[";
+    if (!isEmpty()) {
+        //* Start from the front index
+        unsigned int index = frontindex;
+        unsigned int counter = 0;
+        
+        while (counter < elementCount - 1) {
+            cout << elements[index] << ", ";
+            index = (index + 1) % capacity;
+            counter++;
+        }
+        cout << elements[index];
+    }
+    cout << "]" << endl;
 }

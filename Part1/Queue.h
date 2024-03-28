@@ -20,12 +20,14 @@ class Queue {
         unsigned int frontindex;
         unsigned int backindex;
 
+        void resize();
+
+    public:
+        //* Constructors and Destructor
         Queue();
         Queue(const Queue& aQueue);
         ~Queue();
-        resize();
-    
-    public:
+        
 /******* Start of Queue Public Interface *******/
 		
     // Class Invariant:  FIFO or LILO order
@@ -55,6 +57,11 @@ class Queue {
     // Exception: Throws EmptyDataCollectionException if this Queue is empty.
     // Time Efficiency: O(1)
     ElementType& peek() const;
+
+    // Description: Print the Queue. If Queue is empty, print empty brackets: []
+    // Postcondition: This Queue is unchanged by this operation.
+    // Time Efficiency O(n)
+    void print() const;
 
 /******* End of Queue Public Interface *******/
 
