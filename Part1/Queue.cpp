@@ -11,7 +11,7 @@
 #include "Queue.h"
 #include "EmptyDataCollectionException.h"
 #include <iostream>
-
+using std::cout, std::endl;
 
 template<typename ElementType>
 Queue<ElementType>::Queue() : elementCount(0), capacity(10), frontindex(0), backindex(0) {
