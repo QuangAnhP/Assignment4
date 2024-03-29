@@ -1,8 +1,4 @@
 {
-    "cSpell.words": [
-        "backindex",
-        "frontindex"
-    ],
     "files.associations": {
         "vector": "cpp",
         "__bit_reference": "cpp",
