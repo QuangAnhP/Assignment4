@@ -1,5 +1,6 @@
-# ignore objects file to not clutter the repo
+# ignore objects files and executables to not clutter the repo
 *.o
+*.exe
 
 # ignore setting file 
 *.json
