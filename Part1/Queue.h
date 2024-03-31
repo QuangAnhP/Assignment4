@@ -20,7 +20,7 @@ class Queue {
         unsigned int frontindex;
         unsigned int backindex;
 
-        void resize();
+        void resize(unsigned int newCap);
 
     public:
         //* Constructors and Destructor

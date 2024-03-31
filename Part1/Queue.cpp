@@ -8,6 +8,8 @@
  * Date: March 2024
  */
 
+//TODO: Revert changes to resize()
+
 #include "Queue.h"
 #include "EmptyDataCollectionException.h"
 #include <iostream>
@@ -40,9 +42,9 @@ bool Queue<ElementType>::isEmpty() const {
 }
 
 template<typename ElementType>
-void Queue<ElementType>::resize() {
-    //* Create bigger array and copy elements there for more space
-    ElementType* newEle = new ElementType[capacity*2];
+void Queue<ElementType>::resize(unsigned int newCap) {
+    //* Create new array and copy elements there
+    ElementType* newEle = new ElementType[newCap];
 
     for (unsigned int i = 0; i < elementCount; i++) 
         newEle[i] = elements[(frontindex + i) % capacity];
