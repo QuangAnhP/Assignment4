@@ -18,8 +18,11 @@ class BinaryHeap {
 	private:
 		ElementType* elements;
 		unsigned int elementCount;
+        unsigned int capacity;
 
+        void resize(unsigned int newCap);
 		void reHeapDown(unsigned int indexOfRoot);
+        void reHeapUp(unsigned int indexOfLeaf);
 	
 	public:
 		//* Constructors and Destructor

@@ -18,13 +18,13 @@ using std::endl;
 
 //* Constructors and Destructor
 template <class ElementType>
-BinaryHeap<ElementType>::BinaryHeap() : elementCount(0) {
-    elements = new ElementType[];
+BinaryHeap<ElementType>::BinaryHeap() : elementCount(0), capacity(10) {
+    elements = new ElementType[capacity];
 }
 
 template <class ElementType>
-BinaryHeap<ElementType>::BinaryHeap(const BinaryHeap& aBHeap) : elementCount(aBHeap.elementCount) {
-    elements = new ElementType[aBHeap.elementCount];
+BinaryHeap<ElementType>::BinaryHeap(const BinaryHeap& aBHeap) : elementCount(aBHeap.elementCount), capacity(aBHeap.capacity) {
+    elements = new ElementType[capacity];
     for (unsigned int i = 0; i < elementCount; i++)
         elements[i] = aBHeap.elements[i];
 }
@@ -33,6 +33,7 @@ template <class ElementType>
 BinaryHeap<ElementType>::~BinaryHeap() {
     delete[] elements;
     elementCount = 0;
+    capacity = 0;
 }
 
 
@@ -49,7 +50,11 @@ unsigned int BinaryHeap<ElementType>::getElementCount() const {
 // Time Efficiency: O(log2 n)
 template <class ElementType>
 bool BinaryHeap<ElementType>::insert(ElementType& newElement) {
-    //TODO
+    //* Adding the new element at the back of the array, reHeapUp, increase count
+    elements[elementCount] = newElement;
+    reHeapUp(elementCount);
+    elementCount++;
+    return true;
 } 
 
 // Description: Removes (but does not return) the necessary element.
@@ -84,6 +89,23 @@ ElementType& BinaryHeap<ElementType>::retrieve() const {
 
 
 // Utility method
+    
+    //TODO: revert changes to ~ resize() in A2
+
+template <class ElementType>
+void BinaryHeap<ElementType>::resize(unsigned int newCapacity) {
+    // Create a new array with the new capacity, copy elements into it
+    ElementType* newArray = new ElementType[newCapacity];
+    for (unsigned int i = 0; i < elementCount; ++i) 
+        newArray[i] = elements[i];
+    
+
+    // Delete the old array, update to new array
+    delete[] elements;
+    elements = newArray;
+    capacity = newCapacity;
+}
+
 // Description: Recursively put the array back into a minimum Binary Heap.
 template <class ElementType>
 void BinaryHeap<ElementType>::reHeapDown(unsigned int indexOfRoot) {
@@ -91,8 +113,8 @@ void BinaryHeap<ElementType>::reHeapDown(unsigned int indexOfRoot) {
     unsigned int indexOfMinChild = indexOfRoot;
 
     // Find indices of children.
-    unsigned int indexOfLeftChild = 2 * indexOfRoot + 1;
-    unsigned int indexOfRightChild = 2 * indexOfRoot + 2;
+    unsigned int indexOfLeftChild = 2*indexOfRoot + 1;
+    unsigned int indexOfRightChild = 2*indexOfRoot + 2;
 
     // Base case: elements[indexOfRoot] is a leaf as it has no children
     if (indexOfLeftChild > elementCount - 1) 
@@ -121,3 +143,12 @@ void BinaryHeap<ElementType>::reHeapDown(unsigned int indexOfRoot) {
     }
     return;
 } 
+
+// Description: Make sure the Heap maintains its minimum structure after inserting
+template <class ElementType>
+void BinaryHeap<ElementType>::reHeapUp(unsigned int indexOfLeaf) {
+    while (indexOfLeaf > 0 && elements[indexOfLeaf] <= elements[(indexOfLeaf - 1)/ 2]) {
+        swap(indexOfLeaf, (indexOfLeaf - 1) / 2)
+        indexOfLeaf = (indexOfLeaf - 1) / 2;
+    }
+}
