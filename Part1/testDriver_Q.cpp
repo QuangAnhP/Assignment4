@@ -16,15 +16,23 @@ void testSuite1() {
     for (int i = 1; i <= 3; i++)
         IQueue.enqueue(i);
 
-    cout << "The first item in the Queue is " << IQueue.peek() << endl;
+    cout << "The first item in the Queue is: " << IQueue.peek() << endl;
 
-    //* Testing dequeue + peek + isEmpty
+    //* Testing copy constructor + print
+    Queue<int> IQueue2(IQueue);
+    cout << "After copying into another Queue, the new Queue is: ";
+    IQueue2.print();
+
+    //* Testing dequeue + print + isEmpty
     cout << "Dequeueing 1, 2" << endl;
     IQueue.dequeue();
     IQueue.dequeue();
 
-    cout << "The only item in Queue is " << IQueue.peek() << endl;
-    cout << "Testing isEmpty. Should be False: " << IQueue.isEmpty() << endl;
+    cout << "After dequeueing, the Queue is: ";
+    IQueue.print();
+    cout << "Testing isEmpty. Should be False(0): " << IQueue.isEmpty() << endl;
+    cout << "Copied Queue is still: ";
+    IQueue2.print();
 
     //* Testing inserting more than initial capacity + print (private)
     cout << "Enqueueing 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14" << endl;
@@ -49,13 +57,21 @@ void testSuite2() {
 
     cout << "The first item in the Queue is " << IQueue.peek() << endl;
 
+    //* Testing copy constructor + print
+    Queue<float> IQueue2(IQueue);
+    cout << "After copying into another Queue, the new Queue is: ";
+    IQueue2.print();
+
     //* Testing dequeue + peek + isEmpty
     cout << "Dequeueing 1.1, 2.2" << endl;
     IQueue.dequeue();
     IQueue.dequeue();
 
-    cout << "The only item in Queue is " << IQueue.peek() << endl;
-    cout << "Testing isEmpty. Should be False: " << IQueue.isEmpty() << endl;
+    cout << "After dequeueing, the Queue is: ";
+    IQueue.print();
+    cout << "Testing isEmpty. Should be False(0): " << IQueue.isEmpty() << endl;
+    cout << "Copied Queue is still: ";
+    IQueue2.print();
 
     //* Testing inserting more than initial capacity + print (private)
     cout << "Enqueueing 4.1, 5.1, 6.1, 7.1, 8.1, 9.1, 10.1, 11.1, 12.1, 13.1, 14.1" << endl;
