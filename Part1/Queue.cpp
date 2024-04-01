@@ -52,7 +52,7 @@ void Queue<ElementType>::resize(unsigned int newCap) {
     //* Delete old array, assign new array, reset front and back indexes
     delete[] elements;
     elements = newEle;
-    this->capacity *= 2;
+    this->capacity = newCap;
     frontindex = 0;
     backindex = elementCount;
 }
@@ -60,7 +60,7 @@ void Queue<ElementType>::resize(unsigned int newCap) {
 template<typename ElementType>
 bool Queue<ElementType>::enqueue(ElementType& newElement) {
     if (frontindex == backindex && elementCount != 0)
-        resize();
+        resize(capacity*2);
 
     elements[backindex] = newElement;
     backindex = (backindex + 1) % capacity;
@@ -72,6 +72,9 @@ template<typename ElementType>
 void Queue<ElementType>::dequeue() {
     if (elementCount == 0)
         throw EmptyDataCollectionException("Queue is empty, dequeue fail.");
+    if ((elementCount < (capacity / 4)) && ((capacity / 2) >= 10)) {
+        resize(capacity/2);
+    }
 
     frontindex = (frontindex + 1) % capacity;
     elementCount--;
