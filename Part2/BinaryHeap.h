@@ -55,6 +55,11 @@ class BinaryHeap {
     // Time Efficiency: O(1) 
     ElementType & retrieve() const;
 
+    // Description: Print the Binary Heap. If Binary Heap is empty, print empty brackets: []
+    // Postcondition: This Binary Heap is unchanged by this operation.
+    // Time Efficiency O(n)
+    void print() const;
+
 /******* End of Binary Heap Public Interface *******/
 };
 

@@ -11,7 +11,9 @@
  */
 
 #include <iostream>
+#include <string>
 #include "BinaryHeap.h"  // Header file
+#include "EmptyDataCollectionException.h"
 
 using std::cout;
 using std::endl;
@@ -42,7 +44,7 @@ BinaryHeap<ElementType>::~BinaryHeap() {
 // Time Efficiency: O(1)
 template <class ElementType>
 unsigned int BinaryHeap<ElementType>::getElementCount() const {
-    return (elementCount == 0);
+    return elementCount;
 }
 
 // Description: Inserts newElement into the Binary Heap. 
@@ -51,9 +53,11 @@ unsigned int BinaryHeap<ElementType>::getElementCount() const {
 template <class ElementType>
 bool BinaryHeap<ElementType>::insert(ElementType& newElement) {
     //* Adding the new element at the back of the array, reHeapUp, increase count
+    if (elementCount >= capacity)
+        resize(capacity*2);
     elements[elementCount] = newElement;
-    reHeapUp(elementCount);
     elementCount++;
+    reHeapUp(elementCount - 1);
     return true;
 } 
 
@@ -87,23 +91,47 @@ ElementType& BinaryHeap<ElementType>::retrieve() const {
     return elements[0];
 }
 
+template <class ElementType>
+void BinaryHeap<ElementType>::print() const {
+    cout << "[";
+    if (elementCount > 0) {
+        for (unsigned int i = 0; i < elementCount - 1; i++)
+            cout << elements[i] << ", ";
+        cout << elements[elementCount - 1];
+    }
+    cout << "]" << endl;
+}
 
 // Utility method
-    
-    //TODO: revert changes to ~ resize() in A2
 
+// Description: Create a new array of new capacity to get more space/ conserve space
 template <class ElementType>
-void BinaryHeap<ElementType>::resize(unsigned int newCapacity) {
+void BinaryHeap<ElementType>::resize(unsigned int newCap) {
     // Create a new array with the new capacity, copy elements into it
-    ElementType* newArray = new ElementType[newCapacity];
-    for (unsigned int i = 0; i < elementCount; ++i) 
+    ElementType* newArray = new ElementType[newCap];
+    for (unsigned int i = 0; i < elementCount; i++) 
         newArray[i] = elements[i];
     
-
     // Delete the old array, update to new array
     delete[] elements;
     elements = newArray;
-    capacity = newCapacity;
+    capacity = newCap;
+}
+
+// Description: Make sure the Heap maintains its minimum structure after inserting
+template <class ElementType>
+void BinaryHeap<ElementType>::reHeapUp(unsigned int indexOfLeaf) {
+    unsigned int parent;
+    while (indexOfLeaf > 0) {
+        parent = (indexOfLeaf - 1) / 2;
+        if (elements[parent] <= elements[indexOfLeaf])
+            break;
+
+        ElementType temp = elements[indexOfLeaf];
+        elements[indexOfLeaf] = elements[parent];
+        elements[parent] = temp;
+        reHeapUp(parent);
+    }
 }
 
 // Description: Recursively put the array back into a minimum Binary Heap.
@@ -143,12 +171,3 @@ void BinaryHeap<ElementType>::reHeapDown(unsigned int indexOfRoot) {
     }
     return;
 } 
-
-// Description: Make sure the Heap maintains its minimum structure after inserting
-template <class ElementType>
-void BinaryHeap<ElementType>::reHeapUp(unsigned int indexOfLeaf) {
-    while (indexOfLeaf > 0 && elements[indexOfLeaf] <= elements[(indexOfLeaf - 1)/ 2]) {
-        swap(indexOfLeaf, (indexOfLeaf - 1) / 2)
-        indexOfLeaf = (indexOfLeaf - 1) / 2;
-    }
-}
