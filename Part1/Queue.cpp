@@ -8,11 +8,9 @@
  * Date: March 2024
  */
 
-//TODO: Revert changes to resize()
-
+#include <iostream>
 #include "Queue.h"
 #include "EmptyDataCollectionException.h"
-#include <iostream>
 using std::cout, std::endl;
 
 template<typename ElementType>
