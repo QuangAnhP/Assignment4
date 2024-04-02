@@ -30,13 +30,13 @@ void testSuite1() {
 
     cout << "After removing, the BHeap is: ";
     IBHeap.print();
-    cout << "Testing getElementCount. Should be False(0): " << (IBHeap.getElementCount() == 0) << endl;
+    cout << "Testing getElementCount. Should be 3: " << IBHeap.getElementCount() << endl;
     cout << "Copied BHeap is still: ";
     IBHeap2.print();
 
     //* Testing inserting more than initial capacity + print (private)
-    cout << "inserting 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14" << endl;
-    for (int i = 4; i <= 14; i++)
+    cout << "Inserting 10->20" << endl;
+    for (int i = 10; i <= 20; i++)
         IBHeap.insert(i);
     
     IBHeap.print();
@@ -70,13 +70,13 @@ void testSuite2() {
 
     cout << "After removing, the BHeap is: ";
     FBHeap.print();
-    cout << "Testing getElementCount. Should be True(1): " << (FBHeap.getElementCount() == 0) << endl;
+    cout << "Testing getElementCount. Should be 0: " << FBHeap.getElementCount() << endl;
     cout << "Copied BHeap is still: ";
     FBHeap2.print();
 
     //* Testing inserting more than initial capacity + print (private)
-    cout << "inserting 4.1, 5.1, 6.1, 7.1, 8.1, 9.1, 10.1, 11.1, 12.1, 13.1, 14.1" << endl;
-    for (float i = 4.1; i <= 15; i += 1)
+    cout << "Inserting 10.5 -> 100.5" << endl;
+    for (float i = 10.5; i <= 110; i += 10)
         FBHeap.insert(i);
     
     FBHeap.print();

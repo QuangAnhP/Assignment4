@@ -52,9 +52,10 @@ unsigned int BinaryHeap<ElementType>::getElementCount() const {
 // Time Efficiency: O(log2 n)
 template <class ElementType>
 bool BinaryHeap<ElementType>::insert(ElementType& newElement) {
-    //* Adding the new element at the back of the array, reHeapUp, increase count
+    //* If more elements than capacity, resize before adding in newElement and reHeapUp
     if (elementCount >= capacity)
         resize(capacity*2);
+    
     elements[elementCount] = newElement;
     elementCount++;
     reHeapUp(elementCount - 1);
@@ -121,12 +122,8 @@ void BinaryHeap<ElementType>::resize(unsigned int newCap) {
 // Description: Make sure the Heap maintains its minimum structure after inserting
 template <class ElementType>
 void BinaryHeap<ElementType>::reHeapUp(unsigned int indexOfLeaf) {
-    unsigned int parent;
-    while (indexOfLeaf > 0) {
-        parent = (indexOfLeaf - 1) / 2;
-        if (elements[parent] <= elements[indexOfLeaf])
-            break;
-
+    unsigned int parent = (indexOfLeaf - 1) / 2;;
+    if (indexOfLeaf > 0 && (elements[parent] > elements[indexOfLeaf])) {
         ElementType temp = elements[indexOfLeaf];
         elements[indexOfLeaf] = elements[parent];
         elements[parent] = temp;
