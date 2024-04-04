@@ -25,3 +25,43 @@ PriorityQueue<ElementType>::PriorityQueue() {
     PQueue->capacity = 10;
     PQueue->elements = new ElementType[PQueue.capacity];
 }
+
+template <class ElementType>
+PriorityQueue<ElementType>::PriorityQueue(const PriorityQueue& aPQueue){
+    this = BinaryHeap(aPQueue);
+}
+
+template <class ElementType>
+PriorityQueue<ElementType>::~PriorityQueue(){
+    delete[] PQueue->elements;
+}
+
+template <class ElementType>
+bool PriorityQueue<ElementType>::isEmpty(){
+    if (this->elementCount() == 0){
+        return true;
+    }
+    return false;
+}
+
+template <class ElementType>
+bool PriorityQueue<ElementType>::enqueue(ElementType & newElement){
+    return this->insert(newElement);
+}
+
+template <class ElementType>
+void PriorityQueue<ElementType>::dequeue(){
+    if (this->isEmpty == true){
+        throw EmptyDataCollectionException("Cannot remove from empty queue");
+    }else{
+        
+    }
+}
+
+template <class ElementType>
+ElementType & PriorityQueue<ElementType>::peek() const{
+
+}
+
+
+
