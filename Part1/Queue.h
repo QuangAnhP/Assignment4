@@ -64,6 +64,7 @@ class Queue {
     void print() const;
 
 /******* End of Queue Public Interface *******/
-
 };
+#include "Queue.cpp"
+
 #endif

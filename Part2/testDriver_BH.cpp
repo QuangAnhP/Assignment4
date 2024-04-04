@@ -1,6 +1,5 @@
 #include <iostream>
 #include "BinaryHeap.h"
-#include "BinaryHeap.cpp"
 using std::cout, std::endl;
 
 //* Test suite 1: BHeap of int

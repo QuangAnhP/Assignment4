@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Queue.h"
-#include "Queue.cpp"
 using std::cout, std::endl;
 
 //* Test suite 1: Queue of int
