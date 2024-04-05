@@ -67,7 +67,7 @@ int main() {
         if (newEvent.getType() == 'A'){             //* Arrival
             cout << "Processing an arrival event at time: " << std::right << std::setw(4) << currentTime << endl;
             
-            //* If no one in line or at counter, process current customer; else enqueue
+            //* If no one in line or at counter, process current customer; else enqueue into bankLine
             if (bankLine->isEmpty() && tellerAvailable == true){
                 Event departureA('D', currentTime + newEvent.getLength());
                 myPQueue->enqueue(departureA);
