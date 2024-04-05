@@ -5,7 +5,7 @@
  *
  * Class Invariant:  Binary Heap must always be minimum.
  * 
- * Author: Quang Anh Pham
+ * Author: Quang Anh Pham + Cole Ackerman
  * Last Modification: March 2024
  *
  */
@@ -22,9 +22,7 @@ using std::endl;
 //constructor
 template <class ElementType>
 PriorityQueue<ElementType>::PriorityQueue() {
-    PQueue->elementCount = 0;
-    PQueue->capacity = 10;
-    PQueue->elements = new ElementType[PQueue.capacity];
+    PQueue = new BinaryHeap<ElementType>();
 }
 
 //constructor
@@ -36,15 +34,15 @@ PriorityQueue<ElementType>::PriorityQueue(const PriorityQueue& aPQueue){
 //destructor
 template <class ElementType>
 PriorityQueue<ElementType>::~PriorityQueue(){
-    delete[] PQueue->elements;
+    delete PQueue;
 }
 
 // Description: Returns true if this Priority Queue is empty, otherwise false.
         // Postcondition: This Priority Queue is unchanged by this operation.
         // Time Efficiency: O(1)
 template <class ElementType>
-bool PriorityQueue<ElementType>::isEmpty(){
-    return PQueue->isEmpty();
+bool PriorityQueue<ElementType>::isEmpty() const{
+    return (PQueue->getElementCount() == 0);
 }
 
  // Description: Inserts newElement in this Priority Queue and 
@@ -75,6 +73,3 @@ template <class ElementType>
 ElementType & PriorityQueue<ElementType>::peek() const{
     return PQueue->retrieve();
 }
-
-
-

@@ -55,5 +55,5 @@ class PriorityQueue {
         /*******  End of Priority Queue Public Interface *******/
 };
 
-
+#include "PriorityQueue.h"
 #endif

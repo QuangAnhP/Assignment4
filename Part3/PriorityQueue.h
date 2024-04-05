@@ -1,4 +1,4 @@
-/* 
+ /* 
  * PriorityQueue.h
  *
  * Description: Implemented based on Binary Heap ADT class
@@ -17,7 +17,7 @@
 template <class ElementType>
 class PriorityQueue {
     private: 
-        BinaryHeap* PQueue;
+        BinaryHeap<ElementType>* PQueue;
     
     public:
         //* Constructors and Destructor
@@ -28,7 +28,7 @@ class PriorityQueue {
         /******* Start of Priority Queue Public Interface *******/
 
         // Description: Returns true if this Priority Queue is empty, otherwise false.
-        // Postcondition: This Priority Queue is unchanged by this operation.
+        // Postcondition: This Priority Queue is unchanged by this operation. 
         // Time Efficiency: O(1)
         bool isEmpty() const;
 
@@ -55,4 +55,5 @@ class PriorityQueue {
         /*******  End of Priority Queue Public Interface *******/
 };
 
+#include "PriorityQueue.h"
 #endif

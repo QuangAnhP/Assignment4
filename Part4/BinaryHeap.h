@@ -65,5 +65,4 @@ class BinaryHeap {
 /******* End of Binary Heap Public Interface *******/
 };
 #include "BinaryHeap.cpp"
-
 #endif
