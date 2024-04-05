@@ -17,7 +17,8 @@
 #include "EmptyDataCollectionException.h"
 #include <sstream>
 #include <fstream>
-
+#include <iomanip>
+//! iomanip to get std::right and std::setw for setting right-justified and setting fixed width
 
 using std::cin;
 using std::cout;
@@ -26,68 +27,77 @@ using std::nothrow;
 
 int main() {
     Queue<Event>* bankLine = new Queue<Event>();
-    PriorityQueue<Event>* myQueue = new PriorityQueue<Event>();
-
+    PriorityQueue<Event>* myPQueue = new PriorityQueue<Event>();
     bool tellerAvailable = true;
 
+    //* Variables to handle inputs
     string aLine = "";
     string time = "";
     string length = "";
-    string filename = "";  
     string delimiter = " ";
+
     size_t pos = 0;
-    float count = 0;
-    float Twaiting = 0;
+    int count = 0;
+    float waitTime = 0;
     
-    //Add arrival events to event queue
+    //* Add arrival events to Event queue
     while (getline(cin, aLine)){
+        //* Receiving info from input file
         pos = aLine.find(delimiter);
         time = aLine.substr(0, pos);
         aLine.erase(0, pos + delimiter.length());
         length = aLine;
+
+        //* Changing data type to work with integers
         int T = stoi(time);
         int L = stoi(length);
         Event newArrivalEvent('A', T, L);
-        myQueue->enqueue(newArrivalEvent);
+        myPQueue->enqueue(newArrivalEvent);
         count++;
     }
-    //Event loop
+
+    //* Starting Process
     cout << "Simulation Begins" << endl;
-    while (!myQueue->isEmpty()){
-        Event newEvent = myQueue->peek();
-        myQueue->dequeue();
+    while (!myPQueue->isEmpty()){
+        //* Get new Event
+        Event newEvent = myPQueue->peek();
+        myPQueue->dequeue();
         int currentTime = newEvent.getTime();
 
-        if (newEvent.getType() == 'A'){
-            cout << "Processing an arrival event at time:     " << currentTime << endl;
+        if (newEvent.getType() == 'A'){             //* Arrival
+            cout << "Processing an arrival event at time: " << std::right << std::setw(4) << currentTime << endl;
+            
+            //* If no one in line or at counter, process current customer; else enqueue
             if (bankLine->isEmpty() && tellerAvailable == true){
-                Event dprt('D', currentTime + newEvent.getLength());
-                myQueue->enqueue(dprt);
+                Event departureA('D', currentTime + newEvent.getLength());
+                myPQueue->enqueue(departureA);
                 tellerAvailable = false;
-            }else{
+            }
+            else
                 bankLine->enqueue(newEvent);
-            }
-        }else{
-            cout << "Processing a departure event at time:    " << currentTime << endl;
+        }
+        else {                                      //* Departure
+            cout << "Processing a departure event at time: " << std::right << std::setw(3) << currentTime << endl;
+            
+            //* If bankLine not empty, process first customer in Line, enqueue into PQueue for later discharge
             if (!bankLine->isEmpty()){
-                Event C = bankLine->peek();
+                Event customerInLine = bankLine->peek();
                 bankLine->dequeue();
-                Twaiting += currentTime - C.getTime();
-                Event Cdprt('D', currentTime + C.getLength());
-                myQueue->enqueue(Cdprt);
-            }else{
-                tellerAvailable = true;
+
+                Event departureD('D', currentTime + customerInLine.getLength());
+                myPQueue->enqueue(departureD);
+                waitTime += currentTime - customerInLine.getTime();
             }
+            else
+                tellerAvailable = true;
         }
     }
-    cout << "Simulation Ends" << endl;
-    cout << endl;
-    cout << "Final Statistics:" << endl;
-    cout << endl;
-    cout << "	Total number of people processed: " << count << endl;
-    cout << "	Average amount of time spent waiting: " << Twaiting/count << endl;
+    cout << "Simulation Ends" << endl << endl;
+    cout << "Final Statistics:" << endl << endl;
+    cout << "   Total number of people processed: " << count << endl;
+    cout << "   Average amount of time spent waiting: " << waitTime/count << endl;
 
     delete bankLine;
-    delete myQueue;
+    delete myPQueue;
     return 0;
 }
