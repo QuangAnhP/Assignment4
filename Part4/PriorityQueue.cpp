@@ -5,7 +5,7 @@
  *
  * Class Invariant:  Binary Heap must always be minimum.
  * 
- * Author: Quang Anh Pham
+ * Author: Quang Anh Pham + Cole Ackerman
  * Last Modification: March 2024
  *
  */
@@ -34,7 +34,7 @@ PriorityQueue<ElementType>::PriorityQueue(const PriorityQueue& aPQueue){
 //destructor
 template <class ElementType>
 PriorityQueue<ElementType>::~PriorityQueue(){
-    PQueue->~BinaryHeap();
+    delete PQueue;
 }
 
 // Description: Returns true if this Priority Queue is empty, otherwise false.
@@ -73,6 +73,3 @@ template <class ElementType>
 ElementType & PriorityQueue<ElementType>::peek() const{
     return PQueue->retrieve();
 }
-
-
-
