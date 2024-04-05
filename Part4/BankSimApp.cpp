@@ -36,6 +36,7 @@ int main() {
     string filename = "";  
     string delimiter = " ";
     size_t pos = 0;
+    int count = 0;
     
     //Add arrival events to event queue
     while (getline(cin, aLine)){
@@ -47,6 +48,7 @@ int main() {
         int L = stoi(length);
         Event newArrivalEvent('A', T, L);
         myQueue->enqueue(newArrivalEvent);
+        count++;
     }
     //Event loop
     while (!myQueue->isEmpty()){
@@ -55,8 +57,8 @@ int main() {
         int currentTime = newEvent.getTime();
 
         if (newEvent.getType() == 'A'){
+            cout << "Processing an arrival event at time:     " << currentTime << endl;
             if (bankLine->isEmpty() && tellerAvailable == true){
-                cout << "Processing an arrival event at time:     " << currentTime << endl;
                 Event dprt('D', currentTime + newEvent.getLength());
                 myQueue->enqueue(dprt);
                 tellerAvailable = false;
@@ -70,12 +72,17 @@ int main() {
                 bankLine->dequeue();
                 Event Cdprt('D', currentTime + C.getLength());
                 myQueue->enqueue(Cdprt);
-                cout << "Processing a departure event at time:    " << currentTime + C.getLength() << endl;
             }else{
                 tellerAvailable = true;
             }
         }
     }
+    cout << "Simulation Ends" << endl;
+        cout << endl;
+        cout << "Final Statistics:" << endl;
+        cout << endl;
+        cout << "	Total number of people processed: " << count << endl;
+        cout << "	Average amount of time spent waiting: " << endl;
 }
 
 /*int main() {
