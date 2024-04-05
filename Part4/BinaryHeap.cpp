@@ -57,7 +57,7 @@ bool BinaryHeap<ElementType>::insert(ElementType& newElement) {
     
     elements[elementCount] = newElement;
     elementCount++;
-    if (elementCount > 2){
+    if (elementCount > 0){
         reHeapUp(elementCount - 1);
     }
     return true;
