@@ -2,5 +2,5 @@
 *.o
 *.exe
 
-# ignore setting file 
-.*
+# ignore .vscode folder
+.vscode
