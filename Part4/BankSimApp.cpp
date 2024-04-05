@@ -36,7 +36,8 @@ int main() {
     string filename = "";  
     string delimiter = " ";
     size_t pos = 0;
-    int count = 0;
+    float count = 0;
+    float Twaiting = 0;
     
     //Add arrival events to event queue
     while (getline(cin, aLine)){
@@ -51,6 +52,7 @@ int main() {
         count++;
     }
     //Event loop
+    cout << "Simulation Begins" << endl;
     while (!myQueue->isEmpty()){
         Event newEvent = myQueue->peek();
         myQueue->dequeue();
@@ -70,6 +72,7 @@ int main() {
             if (!bankLine->isEmpty()){
                 Event C = bankLine->peek();
                 bankLine->dequeue();
+                Twaiting += currentTime - C.getTime();
                 Event Cdprt('D', currentTime + C.getLength());
                 myQueue->enqueue(Cdprt);
             }else{
@@ -78,60 +81,13 @@ int main() {
         }
     }
     cout << "Simulation Ends" << endl;
-        cout << endl;
-        cout << "Final Statistics:" << endl;
-        cout << endl;
-        cout << "	Total number of people processed: " << count << endl;
-        cout << "	Average amount of time spent waiting: " << endl;
+    cout << endl;
+    cout << "Final Statistics:" << endl;
+    cout << endl;
+    cout << "	Total number of people processed: " << count << endl;
+    cout << "	Average amount of time spent waiting: " << Twaiting/count << endl;
+
+    delete bankLine;
+    delete myQueue;
+    return 0;
 }
-
-/*int main() {
-    PriorityQueue<Event>* myQueue = new PriorityQueue<Event>();
-    
-
-    if (myQueue != nullptr){
-        string aLine = "";
-        string time = "";
-        string length = "";
-        string filename = "";  
-        string delimiter = " ";
-        size_t pos = 0;
-        int count = 0;
-        int wait = 0;
-        cout << "Simulation Begins" << endl;
-        while (getline(cin, aLine)){
-            pos = aLine.find(delimiter);
-            time = aLine.substr(0, pos);
-            aLine.erase(0, pos + delimiter.length());
-            length = aLine;
-            int T = stoi(time);
-            int L = stoi(length);
-            Event newArvl('A', T, L);
-            myQueue->enqueue(newArvl);
-            count++;
-        }
-        
-        while (!myQueue->isEmpty()){
-            Event currentE = myQueue->peek();
-            if (currentE.getType() == 'A'){
-                cout << "Processing an arrival event at time:     " << currentE.getTime() << endl;
-                wait += currentE.getLength();
-                int T = currentE.getTime();
-                Event dprt('D', T + currentE.getLength());
-                myQueue->enqueue(dprt);
-            }else{
-                cout << "Processing a departure event at time:    " << currentE.getTime() << endl;
-                wait -= currentE.getLength();
-            }
-            myQueue->dequeue();
-        }
-        cout << "Simulation Ends" << endl;
-        cout << endl;
-        cout << "Final Statistics:" << endl;
-        cout << endl;
-        cout << "	Total number of people processed: " << count << endl;
-        cout << "	Average amount of time spent waiting: " << endl;}
-    myQueue->~PriorityQueue();
-    delete[] myQueue;
-    return 0;	   
-} */
