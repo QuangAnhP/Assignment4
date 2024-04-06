@@ -19,19 +19,16 @@ using std::endl;
 
 
 //* Constructors and Destructor
-//constructor
 template <class ElementType>
 PriorityQueue<ElementType>::PriorityQueue() {
     PQueue = new BinaryHeap<ElementType>();
 }
 
-//constructor
 template <class ElementType>
 PriorityQueue<ElementType>::PriorityQueue(const PriorityQueue& aPQueue){
     PQueue = BinaryHeap(aPQueue);
 }
 
-//destructor
 template <class ElementType>
 PriorityQueue<ElementType>::~PriorityQueue(){
     delete PQueue;
@@ -45,7 +42,7 @@ bool PriorityQueue<ElementType>::isEmpty() const{
     return (PQueue->getElementCount() == 0);
 }
 
- // Description: Inserts newElement in this Priority Queue and 
+// Description: Inserts newElement in this Priority Queue and 
         //              returns true if successful, otherwise false.
         // Time Efficiency: O(log2 n)
 template <class ElementType>
